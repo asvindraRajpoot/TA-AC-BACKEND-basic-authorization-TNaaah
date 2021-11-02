@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="/stylesheets/style1.css">
+  <title>Article-Form</title>
+</head>
+<body>
+  <header>
+    <div class="container flex">
+      <a href="/">Article</a>
+      <a href="/articles" class="create">Back To Articles</a>
+    </div>
+
+  </header>
+  <main class="container flex center">
+    <div class="main form-h1">
+      <h1>Fill the below details</h1>
+    </div>
+    <div class="form">
+        <form action="/articles" method="POST">
+            <input type="text" name="title" id="" placeholder="Enter the title">
+            <textarea name="description" id="" cols="30" rows="10" placeholder="Enter the description"></textarea>
+            <input type="text" name="tags" id="" placeholder="Enter the tags">
+            <input type="text" name="author" placeholder="Enter your name">
+            <input type="submit" value="Add Article" class="submit">
+        </form>
+    
+    </div>
+  </main>
+</body>
+</html>

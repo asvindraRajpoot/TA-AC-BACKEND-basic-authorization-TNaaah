@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="/stylesheets/style1.css" />
+    <script
+      src="https://kit.fontawesome.com/814a0fdb0b.js"
+      crossorigin="anonymous"
+    ></script>
+    <title>Articles Details</title>
+  </head>
+  <body>
+    <header>
+      <div class="container flex">
+        <a href="/">Article</a>
+        <a href="/articles/new" class="create">Create Article</a>
+      </div>
+    </header>
+
+    <main class="container flex center">
+      <div class="main form-h1">
+        <h1>Details of Article</h1>
+      </div>
+      <div class="container">
+        <ul>
+          <li class="title"><%=article.title%></li>
+          <li class="tags">
+            <%article.tags.forEach(tag=>{%>
+            <span><%=tag%></span>
+
+            <%})%>
+          </li>
+          <p><%=article.description%></p>
+          <div class="flex align-center">
+            <div class="edit">
+              <a href="/articles/<%=article.id%>/edit">Edit</a>
+            </div>
+            <div class="delete">
+              <a href="/articles/<%=article.id%>/delete">Delete</a>
+            </div>
+            <div class="inclikes">
+              <a href="/articles/<%=article.id%>/inclikes"
+                ><i class="fas fa-thumbs-up"></i
+              ></a>
+            </div>
+            <div class="declikes">
+              <a href="/articles/<%=article.id%>/declikes"
+                ><i class="fas fa-thumbs-down"></i
+              ></a>
+            </div>
+            <div>
+              <li class="likes"><%=article.likes%></li>
+            </div>
+          </div>
+        </ul>
+      </div>
+      <!-- - content of comment
+- article Id for reference to article
+- likes
+- author -->
+
+      <div class="comment">
+        <form action="/articles/<%=article.id%>/comments" method="POST">
+          <textarea
+            name="content"
+            id=""
+            cols="30"
+            rows="2"
+            placeholder="Add Comments"
+          ></textarea>
+          <div>
+            <input
+              type="text"
+              name="author"
+              placeholder="Enter the your name"
+            />
+            <input type="submit" value="Add Comment" />
+          </div>
+        </form>
+      </div>
+      <div>
+        <%comments.forEach(comment=>{%>
+        <div class="comment-p">
+          <p><%=comment.content%></p>
+          <small>--<%=comment.author%></small>
+        </div>
+        <div class="comments-btn">
+          <div class="edit">
+            <a href="/comments/<%=comment.id%>/edit">Edit</a>
+          </div>
+          <div class="delete">
+            <a href="/comments/<%=comment.id%>/delete">Delete</a>
+          </div>
+          <div class="inclikes">
+            <a href="/comments/<%=comment.id%>/inclikes"
+              ><i class="fas fa-thumbs-up"></i
+            ></a>
+          </div>
+          <div class="declikes">
+            <a href="/comments/<%=comment.id%>/declikes"
+              ><i class="fas fa-thumbs-down"></i
+            ></a>
+          </div>
+          <div>
+            <strong class="likes"><%=comment.likes%></strong>
+          </div>
+        </div>
+        <%})%>
+      </div>
+    </main>
+  </body>
+</html>

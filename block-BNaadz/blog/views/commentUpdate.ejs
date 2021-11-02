@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="/stylesheets/style1.css">
+  <title>Comment-Update-Form</title>
+</head>
+<body>
+  <header>
+    <div class="container flex">
+      <a href="/">Article</a>
+      <a href="/articles" class="create">Back To Articles</a>
+    </div>
+
+  </header>
+  <main class="container flex center">
+    <div class="main form-h1">
+      <h1>Fill the below details</h1>
+    </div>
+    <div class="form">
+        <form action="/comments/<%=comment.id%>/" method="POST">
+            <textarea name="content" id="" cols="30" rows="2" placeholder="Add Comments">
+                <%=comment.content%>
+            </textarea>
+            <div>
+              <input type="text" name="author" placeholder="Enter the your name" value=" <%=comment.author%>">
+              <input type="submit" value="Update Comment">
+            </div>
+           
+          </form>
+    
+    </div>
+  </main>
+</body>
+</html>
