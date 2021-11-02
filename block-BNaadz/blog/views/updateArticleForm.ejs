@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="/stylesheets/style2.css">
+  <title>Article-Update-Form</title>
+</head>
+<body>
+  <header>
+    <div class="container flex">
+      <a href="/">Article</a>
+      <a href="/articles" class="create">Back To Articles</a>
+    </div>
+
+  </header>
+  <main class="container flex center">
+    <div class="main form-h1">
+      <h1>Fill the updated details below</h1>
+    </div>
+    <div class="form">
+        <form action="/articles/<%=article.id%>" method="POST">
+            <input type="text" name="title" id="" placeholder="Enter the title" value="<%=article.title%>">
+            <textarea name="description" id="" cols="30" rows="10" placeholder="Enter the description">
+                <%=article.description%>
+            </textarea>
+            <input type="text" name="tags" id="" placeholder="Enter the tags" value="<%=article.tags%>">
+            <input type="text" name="author" placeholder="Enter the author" value="<%=article.author%>">
+            <input type="number" name="likes" placeholder="Enter the likes" value="<%=article.likes%>">
+            <input type="submit" value="Update" class="submit">
+        </form>
+    
+    </div>
+  </main>
+</body>
+</html>
