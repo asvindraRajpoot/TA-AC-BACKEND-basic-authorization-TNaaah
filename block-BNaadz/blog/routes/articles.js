@@ -21,6 +21,17 @@ router.get('/', (req, res, next) => {
 
 })
 
+//render article home page
+router.get('/home',auth.loggedInUser,(req,res)=>{
+  let error=req.flash('error')[0];
+  res.render('home',{error});
+})
+
+//render a new article form
+router.get('/new',auth.loggedInUser, (req, res, next) => {
+  res.render('createArticleForm');
+});
+
 //render the article with comments
 router.get('/:id', (req, res, next) => {
   const id = req.params.id;
@@ -37,18 +48,19 @@ router.get('/:id', (req, res, next) => {
 
 })
 
-app.use(auth.loggedInUser);
 
-//render article home page
-router.get('/home',(req,res)=>{
-  let error=req.flash('error')[0];
-  res.render('home',{error});
-})
 
-//render a new article form
-router.get('/new',auth.loggedInUser, (req, res, next) => {
-  res.render('createArticleForm');
-});
+router.use(auth.loggedInUser);
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -66,11 +78,14 @@ router.get('/:id/edit', (req, res, next) => {
 
 //create the article
 router.post('/', (req, res, next) => {
-  console.log(req.body, req.body.tags);
+ // console.log(req.body, req.body.tags);
   req.body.tags = req.body.tags.split(' ');
-  console.log(req.body, req.body.tags);
+ // console.log(req.body, req.body.tags);
+  req.body.author=req.session.userId;
   Article.create(req.body, (err, data) => {
     if (err) return next(err);
+   // data.author=req.session.userId;
+   // console.log(req.session.userId,data.author,);
     res.redirect('/articles');
   })
 })

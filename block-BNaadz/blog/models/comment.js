@@ -6,7 +6,6 @@ var commentSchema=new Schema({
     content:{type:String,required:true},
     articleId:{type:Schema.Types.ObjectId,ref:'Article' ,required:true},
     likes:Number,
-    author:{type:String,required:true},
 
 },{timestamps:true})
 

@@ -1,23 +1,4 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="/stylesheets/style1.css" />
-    <script
-      src="https://kit.fontawesome.com/814a0fdb0b.js"
-      crossorigin="anonymous"
-    ></script>
-    <title>Articles Details</title>
-  </head>
-  <body>
-    <header>
-      <div class="container flex">
-        <a href="/">Article</a>
-        <a href="/articles/new" class="create">Create Article</a>
-      </div>
-    </header>
+<%include partials/header %>
 
     <main class="container flex center">
       <div class="main form-h1">
@@ -71,11 +52,6 @@
             placeholder="Add Comments"
           ></textarea>
           <div>
-            <input
-              type="text"
-              name="author"
-              placeholder="Enter the your name"
-            />
             <input type="submit" value="Add Comment" />
           </div>
         </form>
@@ -84,7 +60,7 @@
         <%comments.forEach(comment=>{%>
         <div class="comment-p">
           <p><%=comment.content%></p>
-          <small>--<%=comment.author%></small>
+          <small>by <%=user.name%></small>
         </div>
         <div class="comments-btn">
           <div class="edit">
@@ -110,5 +86,4 @@
         <%})%>
       </div>
     </main>
-  </body>
-</html>
+ <%include partials/footer%>

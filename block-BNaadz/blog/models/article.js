@@ -7,7 +7,7 @@ var articleSchema=new Schema({
     description:String,
     tags:[String],
     likes:{type:Number,default:0},
-    author:String,
+    author:{type:Schema.Types.ObjectId,required:true},
     
 
 })
