@@ -1,25 +1,4 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="/stylesheets/style1.css">
-  <title>Home</title>
-</head>
-<body>
-  <header>
-    <div class="container flex">
-      <a href="/">Article</a>
-      <div class="flex ">
-       
-        <a href="/users/logout" class="create log">logout</a>
-      </div>
-
-    </div>
-  
-
-  </header>
+<%include partials/header %>
   <main class="container flex center">
     <p class="login-msg"><%=error%></p>
     <div class="main">
@@ -34,5 +13,4 @@
      <a href="/articles/new" class="create">Create Article</a>
     </div>
   </main>
-</body>
-</html>
+  <%include partials/footer%>

@@ -82,7 +82,7 @@ router.post('/login', (req, res, next) => {
 
 
 
-        req.session.userI = user.id;
+        req.session.userId = user.id;
         req.flash('error', 'Login Successful');
         res.redirect('/articles/home');
 
