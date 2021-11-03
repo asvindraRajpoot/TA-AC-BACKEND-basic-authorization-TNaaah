@@ -1,0 +1,22 @@
+<%include partials/header %>
+
+  </header>
+  <main class="container flex center">
+    <div class="main form-h1">
+      <h1>Articles List</h1>
+    </div>
+    <div class="container">
+        <ul>
+           <%articles.forEach(article=>{%>
+
+            <li><%=article.title%></li>
+            <div class="show">
+                <a href="/articles/<%=article.id%>">Show</a>
+            </div>
+
+           <%})%>
+        </ul>
+    </div>
+
+  </main>
+  <%include partials/footer%>

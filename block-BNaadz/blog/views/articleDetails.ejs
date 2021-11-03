@@ -1,0 +1,90 @@
+<%include partials/header %>
+
+    <main class="container flex center">
+      <div class="main form-h1">
+        <h1>Details of Article</h1>
+      </div>
+      <div class="container">
+        <ul>
+          <li class="title"><%=article.title%></li>
+          <li><%=article.author.name%></li>
+          <li class="tags">
+            <%article.tags.forEach(tag=>{%>
+            <span><%=tag%></span>
+
+            <%})%>
+          </li>
+          <p><%=article.description%></p>
+          <div class="flex align-center">
+            <div class="edit">
+              <a href="/articles/<%=article.id%>/edit">Edit</a>
+            </div>
+            <div class="delete">
+              <a href="/articles/<%=article.id%>/delete">Delete</a>
+            </div>
+            <div class="inclikes">
+              <a href="/articles/<%=article.id%>/inclikes"
+                ><i class="fas fa-thumbs-up"></i
+              ></a>
+            </div>
+            <div class="declikes">
+              <a href="/articles/<%=article.id%>/declikes"
+                ><i class="fas fa-thumbs-down"></i
+              ></a>
+            </div>
+            <div>
+              <li class="likes"><%=article.likes%></li>
+            </div>
+          </div>
+        </ul>
+      </div>
+      <!-- - content of comment
+- article Id for reference to article
+- likes
+- author -->
+
+      <div class="comment">
+        <form action="/articles/<%=article.id%>/comments" method="POST">
+          <textarea
+            name="content"
+            id=""
+            cols="30"
+            rows="2"
+            placeholder="Add Comments"
+          ></textarea>
+          <div>
+            <input type="submit" value="Add Comment" />
+          </div>
+        </form>
+      </div>
+      <div>
+        <%comments.forEach(comment=>{%>
+        <div class="comment-p">
+          <p><%=comment.content%></p>
+          <small>by <%=comment.author.name%></small>
+        </div>
+        <div class="comments-btn">
+          <div class="edit">
+            <a href="/comments/<%=comment.id%>/edit">Edit</a>
+          </div>
+          <div class="delete">
+            <a href="/comments/<%=comment.id%>/delete">Delete</a>
+          </div>
+          <div class="inclikes">
+            <a href="/comments/<%=comment.id%>/inclikes"
+              ><i class="fas fa-thumbs-up"></i
+            ></a>
+          </div>
+          <div class="declikes">
+            <a href="/comments/<%=comment.id%>/declikes"
+              ><i class="fas fa-thumbs-down"></i
+            ></a>
+          </div>
+          <div>
+            <strong class="likes"><%=comment.likes%></strong>
+          </div>
+        </div>
+        <%})%>
+      </div>
+    </main>
+ <%include partials/footer%>

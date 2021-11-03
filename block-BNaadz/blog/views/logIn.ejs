@@ -1,0 +1,16 @@
+<%include partials/header %>
+    <main class="container">
+       
+        <h1>Login Yourself</h1>
+        <div class="form">
+
+       
+        <form action="/users/login" method="POST">
+            <p> <%=error%> </p>
+            <input type="email" name="email" id="" placeholder="Enter your email">
+            <input type="password" name="password" id="" placeholder="Enter your password">
+            <input type="submit" name="" id="" value="Login">
+        </form>
+    </div>
+    </main>
+    <%include partials/footer%>

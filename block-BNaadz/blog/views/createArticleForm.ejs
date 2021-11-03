@@ -1,0 +1,17 @@
+<%include partials/header %>
+  <main class="container flex center">
+    <div class="main form-h1">
+      <h1>Fill the below details</h1>
+    </div>
+    <div class="form">
+        <form action="/articles" method="POST">
+            <input type="text" name="title" id="" placeholder="Enter the title">
+            <textarea name="description" id="" cols="30" rows="10" placeholder="Enter the description"></textarea>
+            <input type="text" name="tags" id="" placeholder="Enter the tags">
+            <input type="text" name="author" placeholder="Enter your name">
+            <input type="submit" value="Add Article" class="submit">
+        </form>
+    
+    </div>
+  </main>
+  <%include partials/footer%>

@@ -1,0 +1,18 @@
+<%include partials/header %>
+  <main class="container flex center">
+    <div class="main form-h1">
+      <h1>Fill the updated details below</h1>
+    </div>
+    <div class="form">
+        <form action="/articles/<%=article.id%>" method="POST">
+            <input type="text" name="title" id="" placeholder="Enter the title" value="<%=article.title%>">
+            <textarea name="description" id="" cols="30" rows="10" placeholder="Enter the description">
+                <%=article.description%>
+            </textarea>
+            <input type="text" name="tags" id="" placeholder="Enter the tags" value="<%=article.tags%>">
+            <input type="submit" value="Update" class="submit">
+        </form>
+    
+    </div>
+  </main>
+  <%include partials/footer%>

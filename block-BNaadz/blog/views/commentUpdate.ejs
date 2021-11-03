@@ -1,0 +1,19 @@
+<%include partials/header %>
+  <main class="container flex center">
+    <div class="main form-h1">
+      <h1>Fill the below details</h1>
+    </div>
+    <div class="form">
+        <form action="/comments/<%=comment.id%>/" method="POST">
+            <textarea name="content" id="" cols="30" rows="2" placeholder="Add Comments">
+                <%=comment.content%>
+            </textarea>
+            <div>
+              <input type="submit" value="Update Comment">
+            </div>
+           
+          </form>
+    
+    </div>
+  </main>
+  <%include partials/footer%>
