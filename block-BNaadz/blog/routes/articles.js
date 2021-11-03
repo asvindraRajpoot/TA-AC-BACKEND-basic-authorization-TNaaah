@@ -4,6 +4,7 @@ var Article = require('../models/article');
 var Comment = require('../models/comment');
 var auth=require('../middlewares/auth');
 const app = require('../app');
+var User=require('../models/user');
 
 /* GET users listing. */
 
@@ -15,7 +16,12 @@ router.get('/', (req, res, next) => {
   Article.find({}, (err, data) => {
 
     if (err) return next(err);
-    res.render('articleList', { articles: data });
+    
+      res.render('articleList', { articles: data });
+  
+     
+  
+    
   })
 
 
@@ -35,14 +41,30 @@ router.get('/new',auth.loggedInUser, (req, res, next) => {
 //render the article with comments
 router.get('/:id', (req, res, next) => {
   const id = req.params.id;
-  Article.findById(id, (err, article) => {
-    if (err) return next(err);
-    console.log(article, id);
-    Comment.find({ articleId: id }, (err, data) => {
-      if (err) return next(err);
-      console.log(data);
-      res.render('articleDetails', ({ article: article, comments: data }))
+  
+  // Article.findById(id, (err, article) => {
+  //   if (err) return next(err);
+  //   if(article.title!=null){
+  //   console.log(article, id);
+
+  // }
+   
+  
+  // })
+  Article
+  .findById(id)
+  .populate('author','name email')
+  .exec((err,article)=>{
+    console.log(err,article);
+     if(err)return next(err);
+      Comment.find({ articleId: id }).populate('author','name email')
+    .exec((err,comments)=>{
+      console.log(err,comments);
+     // if(err)return next(err);
+      res.render('articleDetails', ({ article: article, comments }))
+
     })
+    // res.render('articleDetails',{article});
   })
 
 
@@ -68,12 +90,22 @@ router.use(auth.loggedInUser);
 //update the article
 router.get('/:id/edit', (req, res, next) => {
   const id = req.params.id;
-  Article.findById(id, (err, data) => {
-    if (err) return next(err);
-    res.render('updateArticleForm', { article: data });
+  Article.findById(id).populate('author','name email').exec((err,article)=>{
+    if(err)return next(err);
+    console.log(article.author.name);
+    console.log(req.user.name);
+    if(article.author.name===req.user.name){
+  console.log('inside the update');
+  res.render('updateArticleForm', { article});
+  }else{
+  console.log('inside the article');
+  res.redirect('/articles/'+id);
+}
   })
 
 })
+
+
 
 
 //create the article
@@ -81,7 +113,7 @@ router.post('/', (req, res, next) => {
  // console.log(req.body, req.body.tags);
   req.body.tags = req.body.tags.split(' ');
  // console.log(req.body, req.body.tags);
-  req.body.author=req.session.userId;
+  req.body.author=req.user._id;
   Article.create(req.body, (err, data) => {
     if (err) return next(err);
    // data.author=req.session.userId;
@@ -110,15 +142,29 @@ router.post('/:id', (req, res, next) => {
 
 router.get('/:id/delete', (req, res, next) => {
   const id = req.params.id;
-  Article.findByIdAndDelete(id, (err, data) => {
-    if (err) return next(err);
-    Comment.deleteMany({ articleId: id }, (err, data) => {
-      res.redirect('/articles');
-    })
+  Article.findById(id).populate('author','name email')
+  .exec((err,article)=>{
+    if(err)return next(err);
+    if(article.author.name===req.user.name){
+      Comment.deleteMany({ articleId: id }, (err, data) => {
+        Article.findByIdAndDelete(id,(err,deletedArticle)=>{
+         if(err)return next(err);
+         console.log('it is deleted');
+          res.redirect('/articles/');
+        });
+        
+      })
+     
 
+    }else{
+      res.redirect('/articles/'+id);
+
+    }
+     
   })
 
 })
+
 
 //increment likes in article
 router.get('/:id/inclikes', (req, res, next) => {
@@ -148,6 +194,7 @@ router.post('/:id/comments', (req, res, next) => {
     if (err) return next(err);
     console.log(req.body);
     req.body.articleId = id;
+    req.body.author=req.user._id;
     Comment.create(req.body, (err, comment) => {
       if (err) return next(err);
       res.redirect('/articles/' + id);

@@ -7,6 +7,7 @@ var userSchema=new Schema({
     name:{type:String,required:true},
     email:{type:String,unique:true,required:true},
     password:{type:String,required:true,minlength:5},
+    article:[{type:Schema.Types.ObjectId,ref:'article'}]
 },{timestamps:true})
 
 
