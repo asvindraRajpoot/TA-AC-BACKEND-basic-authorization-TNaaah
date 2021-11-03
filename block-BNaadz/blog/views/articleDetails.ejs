@@ -7,6 +7,7 @@
       <div class="container">
         <ul>
           <li class="title"><%=article.title%></li>
+          <li><%=article.author.name%></li>
           <li class="tags">
             <%article.tags.forEach(tag=>{%>
             <span><%=tag%></span>
@@ -60,7 +61,7 @@
         <%comments.forEach(comment=>{%>
         <div class="comment-p">
           <p><%=comment.content%></p>
-          <small>by <%=user.name%></small>
+          <small>by <%=comment.author.name%></small>
         </div>
         <div class="comments-btn">
           <div class="edit">
