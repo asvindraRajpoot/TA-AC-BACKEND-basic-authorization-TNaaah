@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="/stylesheets/style3.css" />
+    <title>User Products List</title>
+  </head>
+  <body>
+    <header>
+      <div class="container flex">
+        <a href="/">E-Commerce</a>
+        <div>
+          <a href="/users/" class="create">back</a>
+          <a href="" class="create">Cart:<%=cart%></a>
+        </div>
+      </div>
+    </header>
+    <main class="container flex center">
+      <div class="main form-h1">
+        <h1>Products List</h1>
+      </div>
+      <div class="container">
+        <ul class="products-box">
+          <%products.forEach(p=>{%>
+          <div class="product">
+            <h3>Name: <%=p.name%></h3>
+            <small>Price: <%=p.price%></small>
+            <small>No: <%=p.quantity%></small>
+            <small>Likes: <%=p.likes%></small>
+            <div class="buttons">
+              <a href="/users/userProductList/likes/<%=p.id%>" class="btn"
+                >Like</a
+              >
+              <a href="/users/userProductList/cart/<%=p.id%>" class="btn"
+                >add</a
+              >
+            </div>
+          </div>
+          <%})%>
+          <div class="show"></div>
+        </ul>
+      </div>
+    </main>
+  </body>
+</html>

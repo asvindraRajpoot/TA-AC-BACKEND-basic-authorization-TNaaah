@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="/stylesheets/style3.css">
+  <title>Products List</title>
+</head>
+<body>
+  <header>
+    <div class="container flex">
+      <a href="/">E-Commerce</a>
+      <a href="/admin/product/new" class="create">Add Product</a>
+    </div>
+
+  </header>
+  <main class="container flex center">
+    <div class="main form-h1">
+      <h1>Products List</h1>
+    </div>
+    <div class="container">
+        <ul class="products-box">
+          
+
+            <%products.forEach(p=>{%>
+                <div class="product">
+
+               
+                <h3>Name: <%=p.name%></h3>
+                <small>Price: <%=p.price%></small>
+                <small>No: <%=p.quantity%></small>
+                <small>Likes: <%=p.likes%></small>
+                <div class="buttons">
+                    <a href="/admin/adminProductList/edit/<%=p.id%>" class="btn">Update</a>
+                    <a href="/admin/adminProductList/delete/<%=p.id%>" class="btn">Delete</a>
+                </div>
+               
+            </div>
+            <%})%>
+           
+            <div class="show">
+               
+            </div>
+
+         
+        </ul>
+    </div>
+
+  </main>
+</body>
+</html>

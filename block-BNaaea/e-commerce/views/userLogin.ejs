@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/stylesheets/style2.css">
+    <title>Login Form</title>
+</head>
+<body>
+    <header>
+        <div class="flex container space-between">
+        <div class="container">
+        <a href="/" class="brand">E-Commerce</a>
+      </div>
+      <div>
+        <a href="/users/userRegister" class="btn">SignUp</a>
+      </div>
+        </div>
+    </header>
+    <main class="container">
+       
+        <h1>Login Yourself as User</h1>
+        <div class="form">
+        
+      
+        <form action="/users/userLogin" method="POST">
+            <p> <%=error%> </p>
+            <input type="email" name="email" id="" placeholder="Enter your email">
+            <input type="password" name="password" id="" placeholder="Enter your password">
+            <input type="submit" name="" id="" value="Login">
+        </form>
+    </div>
+    </main>
+</body>
+</html>

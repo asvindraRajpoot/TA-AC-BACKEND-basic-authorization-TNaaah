@@ -1,0 +1,168 @@
+/* http://meyerweb.com/eric/tools/css/reset/ */
+/* v1.0 | 20080212 */
+
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, font, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  outline: 0;
+  font-size: 100%;
+  vertical-align: baseline;
+  background: transparent;
+}
+body {
+  line-height: 1;
+}
+ol, ul {
+  list-style: none;
+}
+blockquote, q {
+  quotes: none;
+}
+blockquote:before, blockquote:after,
+q:before, q:after {
+  content: '';
+  content: none;
+}
+
+/* remember to define focus styles! */
+:focus {
+  outline: 0;
+}
+
+/* remember to highlight inserts somehow! */
+ins {
+  text-decoration: none;
+}
+del {
+  text-decoration: line-through;
+}
+
+/* tables still need 'cellspacing="0"' in the markup */
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+
+
+body{
+  background-color: aliceblue;
+}
+
+html{
+  font-size: 16px;
+}
+
+header{
+  background-color: rgb(8, 8, 51);
+  padding: 1.3rem;
+}
+
+a{
+  color: white;
+  text-decoration: none;
+  font-weight: bold
+}
+
+.container{
+  max-width: 1250px;
+  width: 100%;
+  margin: 0 auto;
+  padding: 0 2rem;
+}
+.flex{
+  display: flex;
+}
+
+.space-between{
+  justify-content: space-between;
+}
+
+.align-center{
+  align-items: center;
+}
+
+header a{
+  font-size: 1.2rem;
+
+}
+
+.btn{
+  background-color: aliceblue;
+  padding: .3rem .7rem;
+  color: black;
+  border-radius: .2rem;
+  margin: 0 .5rem;
+}
+
+h1{
+  font-size: 2rem;
+  text-align: center;
+  font-weight: bold;
+  margin-top: 5rem;
+}
+.brand{
+font-size: 1.3rem;
+}
+
+.form{
+  margin-top: 3rem;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+ 
+}
+form{
+  display: flex;
+  flex-direction: column;
+  width: 40%;
+  background-color: gray;
+ padding: 1rem;
+ box-shadow: .1rem .1rem .6rem .5rem black;
+
+
+}
+input{
+  padding: 1rem;
+  margin-top: 1rem;
+  border-radius: .2rem;
+  border: none;
+  border: .1rem solid blue;
+  font-size: 1rem;
+}
+
+input:focus{
+  border: .1rem solid blue;
+}
+
+.text-center{
+    text-align: center;
+}
+
+.btn{
+    background-color: gray;
+    padding: .3rem .7rem;
+    border: unset;
+    border: .1rem solid gray;
+    border-radius: .2rem;
+    margin: 0 .3rem;
+  }
+
+.user-pro{
+    margin-top: 2rem;
+}
+
+
+.admin-buttons{
+    display: flex;
+    justify-content: center;
+    margin-top: 2rem;
+}
