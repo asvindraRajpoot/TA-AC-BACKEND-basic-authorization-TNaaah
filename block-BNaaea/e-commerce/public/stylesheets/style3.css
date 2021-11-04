@@ -1,0 +1,355 @@
+/* http://meyerweb.com/eric/tools/css/reset/ */
+/* v1.0 | 20080212 */
+
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, font, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  outline: 0;
+  font-size: 100%;
+  vertical-align: baseline;
+  background: transparent;
+}
+body {
+  line-height: 1;
+}
+ol, ul {
+  list-style: none;
+}
+blockquote, q {
+  quotes: none;
+}
+blockquote:before, blockquote:after,
+q:before, q:after {
+  content: '';
+  content: none;
+}
+
+/* remember to define focus styles! */
+:focus {
+  outline: 0;
+}
+
+/* remember to highlight inserts somehow! */
+ins {
+  text-decoration: none;
+}
+del {
+  text-decoration: line-through;
+}
+
+/* tables still need 'cellspacing="0"' in the markup */
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+
+
+html{
+  font-size: 16px;
+}
+
+body{
+  line-height: 1.5;
+  background-color: aliceblue;
+}
+
+.container{
+  max-width: 1250px;
+  width: 100%;
+  margin: 0 auto;
+  padding: 0 2rem;
+}
+
+header{
+  background-color: black;
+}
+
+
+h1,h2{
+  color: black;
+  font-size: 2rem;
+}
+
+.flex{
+  display: flex;
+}
+.center{
+  justify-content: center;
+}
+
+img{
+  width: 100%;
+}
+a{
+  text-decoration: none;
+}
+
+header a{
+  color: white;
+  font-size: 2rem;
+}
+
+.main{
+
+  display: flex;
+  justify-content: center;
+  margin-top: 7rem;
+}
+.goto{
+  text-align: center;
+  margin-top: 1rem;
+}
+.goto a{
+  color: white;
+  font-size: 1rem;
+  display: inline-block;
+  background-color: black;
+  border-radius: .2rem;
+  padding: .4rem 1rem;
+  font-weight: bold
+}
+main{
+  flex-direction: column;
+}
+
+header div{
+  justify-content: space-between;
+  align-items: center;
+}
+
+.create{
+  background-color: white;
+  color: black;
+  border-radius: .2rem;
+  padding: .2rem .7rem;
+  font-weight: bold;
+  font-size: 1.2rem;
+}
+
+
+form{
+  display: flex;
+  justify-content: center;
+  margin-top: 1rem;
+  flex-direction: column;
+  width: 60%;
+  background-color: black;
+  padding: 1rem;
+}
+
+input,textarea{
+  padding: 1rem;
+  font-size: 1rem;
+  margin-top: 1rem;
+  
+}
+
+.submit{
+  text-align: center;
+}
+.form-h1{
+  margin-top: 1rem;
+}
+.form{
+  display: flex;
+  justify-content: center;
+ 
+}
+
+ul{
+  
+  font-weight: bold;
+  margin-top: 2rem;
+}
+li{
+  font-size: 1.3rem;
+}
+
+.show{
+  background-color: green;
+  color: white;
+  padding: .3rem 1rem;
+  border-radius: 1rem;
+  margin-top: .5rem;
+  display: inline-block;
+  margin-bottom: 1rem;
+}
+.show a{
+  color: white;
+}
+
+
+.edit,.delete,.inclikes,.declikes{
+  color: white;
+  background-color: black;
+  border-radius: .2rem;
+  padding: .4rem .7rem;
+  margin: 1rem 1rem;
+}
+a{
+  color: white;
+}
+
+
+.edit{
+  background-color: black;
+  padding: .5rem .7rem;
+ 
+}
+
+.delete{
+  background-color: red;
+  padding: .5rem .7rem;
+}
+.inclikes{
+  background-color:aliceblue;
+ 
+ 
+}
+.declikes{
+  background-color:aliceblue;
+  
+ 
+}
+i{
+  color: black;
+  font-size: 1.5rem;
+ 
+}
+.title{
+  font-size: 1.8rem;
+}
+p{
+  color: blue;
+  margin: 1rem 0;
+}
+
+.author{
+  color: black;
+}
+.likes{
+  color: black;
+  font-size: 1.2rem;
+}
+
+
+.align-center{
+  align-items: center;
+}
+
+.tags{
+  display: flex;
+
+}
+.tags span{
+ margin-top: 1rem;
+ margin-left: 1rem;
+ margin-right: 1rem;
+  color: white;
+  background-color: green;
+  padding: .2rem .7rem;
+  font-size: 1rem;
+  border-radius: 1rem;
+}
+
+
+.comment form{
+  background-color: gray;
+  width: 100%;
+
+}
+.comment textarea{
+  padding: .3rem;
+
+}
+.comment input{
+  padding: .3rem;
+}
+
+.comment-p{
+  display: flex;
+  align-items: center;
+  
+}
+
+.comment-p p{
+  background-color: gainsboro;
+  padding: .2rem 1rem;
+  font-weight: bold;
+}
+small{
+  font-weight: bold;
+  margin-left: 1rem;
+}
+
+.comments-btn{
+  display: flex;
+  align-items: center;
+}
+strong{
+  font-size: 1.5rem;
+  font-weight: bold;
+}
+
+.login-msg{
+  text-align: center;
+  font-size: 2rem;
+  color: green;
+}
+
+.product{
+  background-color: black;
+  color: white;
+  display: flex;
+  margin: 1rem 0;
+  width: 25%;
+  border-radius: .2rem;
+  align-items: center;
+  flex-direction: column;
+  text-align: start;
+  padding: 1rem;
+}
+
+h3{
+  font-size: 2rem;
+  font-weight: bold;
+}
+.price,.quantity{
+  display: inline-block;
+  font-size: 1.5rem;
+  margin-bottom: 1rem;
+}
+
+.products-box{
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+}
+
+.btn{
+  background-color: gray;
+  padding: .3rem .7rem;
+  border: unset;
+  border: .1rem solid gray;
+  border-radius: .2rem;
+  margin: 0 .3rem;
+}
+
+.buttons{
+  display: flex;
+  justify-content: space-between;
+}
+
+.error{
+  color: red;
+  
+}

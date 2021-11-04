@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="/stylesheets/style3.css">
+  <title>Create-Product-Form</title>
+</head>
+<body>
+  <header>
+    <div class="container flex">
+      <a href="/">E-Commerce</a>
+      <!-- <a href="/" class="create">Back To Articles</a> -->
+    </div>
+
+  </header>
+  <main class="container flex center">
+    <div class="main form-h1">
+      <h1>Fill the below details</h1>
+    </div>
+    <div class="form">
+        <form action="/admin/product/new" method="POST">
+            <p class="error"><%=error%></p>
+            <input type="text" name="name" id="" placeholder="Enter the product name">
+            <input type="number" name="quantity" placeholder="Enter the quantity">
+            <input type="number" name="price" placeholder="Enter the price">
+            <input type="submit" value="Add Product" class="submit">
+        </form>
+    
+    </div>
+  </main>
+</body>
+</html>
