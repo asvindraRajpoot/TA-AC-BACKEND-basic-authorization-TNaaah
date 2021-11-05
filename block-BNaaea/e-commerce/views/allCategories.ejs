@@ -1,0 +1,43 @@
+
+<%if(admin){%>
+    <%include partials/headerAdmin %>
+    <main class="container">
+        <div class=" users-list ">
+            <%products.forEach(product=>{%>
+                <%if(product.category){%>
+                    <li>
+                      
+                            <a href="/admin/view/allProducts/<%=product.category%>">
+                                <%=product.category%>
+                            </a>
+                                 
+                   </li>
+                <%}%>
+                
+           <%})%>
+        </div>
+    </main>
+    <%include partials/footer%>
+<%}else{%>
+
+    <%include partials/headerUser %>
+    <main class="container">
+        <div class=" users-list ">
+            <%products.forEach(product=>{%>
+                <%if(product.category){%>
+                    <li>
+                       
+                            <a href="/users/view/allProducts/<%=product.category%>">
+                                <%=product.category%>
+                            </a>
+                              
+                   </li>
+                <%}%>
+                
+           <%})%>
+        </div>
+    </main>
+    <%include partials/footer%>
+
+<%}%>
+

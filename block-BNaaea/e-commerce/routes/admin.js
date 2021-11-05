@@ -3,7 +3,7 @@ var router = express.Router();
 var flash=require('connect-flash');
 var Product=require('../models/product');
 var authAdmin=require('../middlewares/authAdmin');
-
+var User=require('../models/user');
 
 var Admin =require('../models/admin');
 
@@ -140,7 +140,7 @@ router.get('/product/new',(req,res)=>{
 
 //capture the data for the creation of the product.
 router.post('/product/new',(req,res,next)=>{
-  if(req.admin.namee){
+  if(req.admin.name){
     if(req.body.name){ Product.create(req.body,(err,product)=>{
       if(err)return next(err);
       res.redirect('/admin/adminProductList');       
@@ -229,6 +229,40 @@ router.get('/adminProductList',(req,res,next)=>{
 
 
 
+router.get('/view/allUsers',(req,res,next)=>{
+  
+ 
+ 
+  User.find({},(err,users)=>{
+    if(err)return next(err);
+    res.render('allUser',{users});
+  })
+
+})
+
+
+router.get('/view/allCategories',(req,res,next)=>{
+  
+ 
+ 
+  Product.find({},(err,products)=>{
+    if(err)return next(err);
+    res.render('allCategories',{products});
+  })
+
+})
+
+router.get('/view/allProducts/:category',(req,res,next)=>{
+  var category=req.params.category;
+  
+  Product.find({category:category},(err,products)=>{
+    console.log(err,products);
+    if(err)return next(err);
+    res.render('adminProductList',{products});
+  })
+
+
+})
 
 
 module.exports = router;

@@ -528,3 +528,23 @@ h6{
   display: inline-block;
   margin-top: 4rem 0;
 }
+
+.fun-a{
+  display: flex;
+  justify-content: space-around;
+  margin-top: 2rem;
+}
+
+.fun-a a{
+  color: black;
+  
+}
+.users-list{
+  margin-top: 3rem;
+}
+
+.users-list li a{
+  color: black;
+  font-size: 1.5rem;
+  font-weight: bold;
+}

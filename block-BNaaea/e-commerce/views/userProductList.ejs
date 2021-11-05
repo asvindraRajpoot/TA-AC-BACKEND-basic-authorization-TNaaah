@@ -1,22 +1,4 @@
-<!-- <!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="/stylesheets/style3.css" />
-    <title>User Products List</title>
-  </head>
-  <body>
-    <header>
-      <div class="container flex">
-        <a href="/">E-Commerce</a>
-        <div>
-          <a href="/users/" class="create">back</a>
-          <a href="" class="create">Cart:<%=cart%></a>
-        </div>
-      </div>
-    </header> -->
+
     <%include partials/headerUser %>
     <main class="container flex center">
       <div class="main form-h1">
@@ -31,16 +13,19 @@
             <small>No: <%=p.quantity%></small>
             <small>Likes: <%=p.likes%></small>
             <div class="buttons">
-              <a href="/users/userProductList/likes/<%=p.id%>" class="btn"
-                >Like</a
-              >
-              <a href="/users/userProductList/cart/<%=p.id%>" class="btn"
-                >add</a
-              >
+              <%if(p.category){%>
+                <a href="/users/userProductList/likes/<%=p.category%>" class="btn"
+                  >Like</a
+                >
+             <%}else{%>
+                <a href="/users/userProductList/likes/<%=p.id%>" class="btn"
+                  >Like</a
+                >
+              <%}%>            
             </div>
           </div>
           <%})%>
-          <div class="show"></div>
+         
         </ul>
       </div>
     </main>

@@ -98,8 +98,25 @@ router.post('/userLogin',(req,res,next)=>{
   
 })
 
+//like the product based on category
+
+
+
 router.use(authUser.loggedInUser);
 
+// router.get('/userProductList/likes/:category',(req,res,next)=>{
+//   if(req.user.name){
+//     let category =req.params.category;
+//     Product.findOneAndUpdate({category:category},{$inc:{likes:1}},{upsert:true,new:true},(err,updatedProduct)=>{
+//      if(err)return next(err);
+//      res.redirect('/users/userProductList/'+category);
+//     })
+//   }else{
+//     res.redirect('/users/login');
+//   }
+  
+
+// })
 
 router.get('/userDashboard',(req,res)=>{
   let error=req.flash('error')[0];
@@ -131,7 +148,7 @@ router.get('/userProductList',(req,res,next)=>{
       User.findById(req.session.userId,(err,user)=>{
         if(err)return next(err);
   
-        res.render('userProductList',{products:products,cart:user.cart});
+        res.render('userProductList',{products:products});
       })
       
     })
@@ -142,21 +159,57 @@ router.get('/userProductList',(req,res,next)=>{
   
 })
 
-//like the product
-router.get('/userProductList/likes/:id',(req,res)=>{
+
+
+
+//handle get request on particular id
+
+router.get('/userProductList/:id',(req,res,next)=>{
+  let id =req.params.id;
+  Product.findById(id,(err,products)=>{
+    if(err)return next(err);
+    res.render('/userproductList',{products});
+  })
+
+
+})
+
+
+//handle get req. on category
+router.get('/userProductList/:category',(req,res,next)=>{
+  let category =req.params.category;
+  Product.find({category:category},(err,products)=>{
+    if(err)return next(err);
+    res.render('/userproductList',{products});
+  })
+})
+
+
+
+router.get('/userProductList/likes/:category',(req,res,next)=>{
   if(req.user.name){
-    let id =req.params.id;
-    Product.findByIdAndUpdate(id,{$inc:{likes:1}},{upsert:true,new:true},(err,updatedProduct)=>{
+    let category =req.params.category;
+    Product.findOneAndUpdate({category:category},{$inc:{likes:1}},{upsert:true,new:true},(err,updatedProduct)=>{
      if(err)return next(err);
-     res.redirect('/users/userProductList');
+     res.redirect('/users/userProductList/'+category);
     })
   }else{
     res.redirect('/users/login');
   }
-  
-
 })
 
+
+router.get('/userProductList/likes/:id',(req,res,next)=>{
+  if(req.user.name){
+    let id =req.params.id;
+    Product.findByIdAndUpdate(id,{$inc:{likes:1}},{upsert:true,new:true},(err,updatedProduct)=>{
+     if(err)return next(err);
+     res.redirect('/users/userProductList/'+id);
+    })
+  }else{
+    res.redirect('/users/login');
+  }
+})
 
 //handle cart
 router.get('/userProductList/cart/:id',(req,res,next)=>{
@@ -180,5 +233,28 @@ router.get('/userProductList/cart/:id',(req,res,next)=>{
 
 })
 
+
+router.get('/view/allCategories',(req,res,next)=>{
+  
+ 
+ 
+  Product.find({},(err,products)=>{
+    if(err)return next(err);
+    res.render('allCategories',{products});
+  })
+
+})
+
+router.get('/view/allProducts/:category',(req,res,next)=>{
+  var category=req.params.category;
+  
+  Product.find({category:category},(err,products)=>{
+    console.log(err,products);
+    if(err)return next(err);
+    res.render('userProductList',{products});
+  })
+
+
+})
 
 module.exports = router;
