@@ -2,11 +2,13 @@ var express = require('express');
 var router = express.Router();
 var flash=require('connect-flash');
 var Product=require('../models/product');
+var authAdmin=require('../middlewares/authAdmin');
 
 
 var Admin =require('../models/admin');
 
 const product = require('../models/product');
+//const admin = require('../models/admin');
 /* GET admin listing. */
 router.get('/', function(req, res, next) {
   res.render('adminIndex');
@@ -16,7 +18,7 @@ router.get('/', function(req, res, next) {
 
 
 //render login form
-router.get('/adminLogin',(req,res,next)=>{
+router.get('/login',(req,res,next)=>{
   var error=req.flash('error')[0];
   res.render('adminLogIn',{error});
  // next()
@@ -49,7 +51,7 @@ router.post('/adminRegister',(req,res,next)=>{
     }
     //console.log('after saving into database',admin;
    // req.flash('error','adminhasbeen Successfully registered');
-    res.redirect('/admin/adminLogIn');
+    res.redirect('/admin/logIn');
   }))
   
 })
@@ -62,7 +64,7 @@ router.post('/adminLogin',(req,res,next)=>{
   //console.log(email,password);
   if(!email || !password){
     req.flash('error','Email/Password is required');
-      return res.redirect('/admin/adminLogin');
+      return res.redirect('/admin/login');
    
   }
 
@@ -71,7 +73,7 @@ router.post('/adminLogin',(req,res,next)=>{
    console.log(admin);
    if(!admin){
      req.flash('error','admin does not exist');
-     return res.redirect('/admin/adminLogin');
+     return res.redirect('/admin/login');
    }
 
    //compare the password
@@ -79,7 +81,7 @@ router.post('/adminLogin',(req,res,next)=>{
     if(err)return next(err);
     if(!result){
       req.flash('error','Password is not correct');
-      return res.redirect('/admin/adminLogin');
+      return res.redirect('/admin/login');
     }else{
       //persist the adminogin using session
 
@@ -88,7 +90,7 @@ router.post('/adminLogin',(req,res,next)=>{
      
       req.session.adminId=admin.id;
        req.flash('error','Login Successful');
-       res.redirect('/admin/adminDashboard');
+       res.redirect('/admin');
 
     }
 
@@ -96,16 +98,29 @@ router.post('/adminLogin',(req,res,next)=>{
   }))
 })
 
+router.use(authAdmin.loggedInAdmin);
+
+
 router.get('/adminDashboard',(req,res)=>{
   let error=req.flash('error')[0];
-  res.render('adminDashboard',{error});
+  console.log(req.body);
+  if(req.admin.name){
+    console.log('in if');
+    console.log(req.body.admin);
+    res.render('adminDashboard',{error});
+
+  }else{
+    console.log('in else');
+    res.redirect('/admin/login');
+  }
+ 
 })
 
 //handle logout
 router.get('/logout',(req,res)=>{
   req.session.destroy();
   res.clearCookie('connect.sid');
-  res.redirect('/admin/adminLogin');
+  res.redirect('/admin/login');
 
 })
 
@@ -114,19 +129,31 @@ router.get('/logout',(req,res)=>{
 //create product
 router.get('/product/new',(req,res)=>{
     var error=req.flash('error')[0];
-    res.render('createProduct',{error});
+    if(req.admin.name){
+      res.render('createProduct',{error});
+    }else{
+      res.redirect('/admin/login');
+    }
+    
+  
 })
 
 //capture the data for the creation of the product.
 router.post('/product/new',(req,res,next)=>{
-   
+  if(req.admin.namee){
     if(req.body.name){ Product.create(req.body,(err,product)=>{
-        if(err)return next(err);
-        res.redirect('/admin/adminProductList');       
-    })}else{
-        req.flash('error','Please fill all the details');
-        res.redirect('/admin/product/new');
-    }
+      if(err)return next(err);
+      res.redirect('/admin/adminProductList');       
+  })}else{
+      req.flash('error','Please fill all the details');
+      res.redirect('/admin/product/new');
+  }
+  }else{
+    res.redirect('/admin/login');
+  }
+ 
+   
+ 
    
 
 })
@@ -136,30 +163,46 @@ router.post('/product/new',(req,res,next)=>{
 //update product
 router.get('/adminProductList/edit/:id',(req,res,next)=>{
     var id =req.params.id;
-    Product.findById(id,(err,product)=>{
+    if(req.admin.name){
+      Product.findById(id,(err,product)=>{
         if(err)return next(err);
         res.render('updateProduct',{product});
     })
+    }else{
+      res.redirect('/admin/login');
+    }
+   
 })
 
 router.post('/adminProductList/edit/:id',(req,res,next)=>{
     var id =req.params.id;
-    Product.findByIdAndUpdate(id,req.body,{upsert:true,new:true},(err,updatedProduct)=>{
+    if(req.admin.name){
+      Product.findByIdAndUpdate(id,req.body,{upsert:true,new:true},(err,updatedProduct)=>{
         if(err)return next(err);
         console.log(updatedProduct);
         res.redirect('/admin/adminProductList');
     })
+    }else{
+      res.redirect('/admin/login');
+
+    }
+  
 })
 
 
 //delete product
 router.get('/adminProductList/delete/:id',(req,res,next)=>{
     var id =req.params.id;
-    Product.findByIdAndDelete(id,{upsert:true,new:true},(err,deletedProduct)=>{
+    if(req.admin.name){
+      Product.findByIdAndDelete(id,{upsert:true,new:true},(err,deletedProduct)=>{
         if(err)return next(err);
         console.log(deletedProduct);
         res.redirect('/admin/adminProductList');
     })
+    }else{
+      res.redirect('/admin/login');
+    }
+  
 })
 
 
@@ -167,13 +210,19 @@ router.get('/adminProductList/delete/:id',(req,res,next)=>{
 
 //handle products list
 router.get('/adminProductList',(req,res,next)=>{
+  console.log('in admin');
 
-
+   if(req.admin.name){
     Product.find({},(err,products)=>{
-        if(err)return next(err);
-        console.log(products);
-        res.render('adminProductList',{products});
-    })
+      if(err)return next(err);
+      console.log(products);
+      res.render('adminProductList',{products});
+  })
+   }else{
+     console.log('in admin Product List');
+    res.redirect('/admin/login');
+   }
+  
     
 })
 

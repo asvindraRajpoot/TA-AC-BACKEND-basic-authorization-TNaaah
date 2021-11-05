@@ -166,3 +166,48 @@ input:focus{
     justify-content: center;
     margin-top: 2rem;
 }
+
+
+html{
+  font-size: 16px;
+}
+body{
+  background-color: aliceblue;
+  line-height: 1.5;
+}
+
+.container{
+  max-width: 1250px;
+  width: 100%;
+  margin: 0 auto;
+  padding: 0 2rem;
+}
+
+.flex{
+  display: flex;
+}
+.space-between{
+  justify-content: space-between;
+}
+
+.flex-center{
+  justify-content: center;
+}
+.align-center{
+  align-items: center;
+}
+.text-center{
+  text-align: center;
+}
+
+.btn{
+  background-color: gray;
+  padding: .3rem .7rem;
+  border: unset;
+  border: .1rem solid gray;
+  border-radius: .2rem;
+}
+a{
+  text-decoration: none;
+  color: white;
+}
