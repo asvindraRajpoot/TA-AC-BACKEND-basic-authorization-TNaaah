@@ -3,9 +3,10 @@ var router = express.Router();
 var flash=require('connect-flash');
 var Product=require('../models/product');
 var User=require('../models/user');
+var authUser=require('../middlewares/authUser');
 
 
-var User =require('../models/user');
+//var User =require('../models/user');
 /* GET users listing. */
 router.get('/', function(req, res, next) {
   res.render('userIndex');
@@ -15,8 +16,9 @@ router.get('/', function(req, res, next) {
 
 
 //render login form
-router.get('/userLogin',(req,res,next)=>{
+router.get('/login',(req,res,next)=>{
   var error=req.flash('error')[0];
+  console.log(req.body.user);
   res.render('userLogin',{error});
  // next()
 })
@@ -48,7 +50,7 @@ router.post('/userRegister',(req,res,next)=>{
     }
     //console.log('after saving into database',user);
    // req.flash('error','User hasbeen Successfully registered');
-    res.redirect('/users/userLogin');
+    res.redirect('/users/login');
   })
   
 })
@@ -61,7 +63,7 @@ router.post('/userLogin',(req,res,next)=>{
   //console.log(email,password);
   if(!email || !password){
     req.flash('error','Email/Password is required');
-      return res.redirect('/users/userLogin');
+      return res.redirect('/users/login');
    
   }
 
@@ -69,7 +71,7 @@ router.post('/userLogin',(req,res,next)=>{
    if(err)return next(err)
    if(!user){
      req.flash('error','user does not exist');
-     return res.redirect('/users/userLogin');
+     return res.redirect('/users/login');
    }
 
    //compare the password
@@ -77,7 +79,7 @@ router.post('/userLogin',(req,res,next)=>{
     if(err)return next(err);
     if(!result){
       req.flash('error','Password is not correct');
-      return res.redirect('/users/userLogin');
+      return res.redirect('/users/login');
     }else{
       //persist the useruserLogin using session
 
@@ -86,7 +88,7 @@ router.post('/userLogin',(req,res,next)=>{
      
        req.session.userId=user.id;
        req.flash('error','userLogin Successful');
-       res.redirect('/users/userDashboard');
+       res.redirect('/users');
 
     }
 
@@ -96,16 +98,25 @@ router.post('/userLogin',(req,res,next)=>{
   
 })
 
+router.use(authUser.loggedInUser);
+
+
 router.get('/userDashboard',(req,res)=>{
   let error=req.flash('error')[0];
-  res.render('userDashboard',{error});
+  console.log(req.body);
+  if(req.user.name){
+    res.render('userDashboard',{error});
+  }else{
+    res.redirect('/users/login');
+  }
+ 
 })
 
 //handle logout
 router.get('/logout',(req,res)=>{
   req.session.destroy();
   res.clearCookie('connect.sid');
-  res.redirect('/users/userLogin');
+  res.redirect('/users/login');
 
 })
 
@@ -114,42 +125,57 @@ router.get('/logout',(req,res)=>{
 ///handle user product list
 
 router.get('/userProductList',(req,res,next)=>{
-  Product.find({},(err,products)=>{
-    if(err)return next(err);
-    User.findById(req.session.userId,(err,user)=>{
+  if(req.user.name){
+    Product.find({},(err,products)=>{
       if(err)return next(err);
-
-      res.render('userProductList',{products:products,cart:user.cart});
+      User.findById(req.session.userId,(err,user)=>{
+        if(err)return next(err);
+  
+        res.render('userProductList',{products:products,cart:user.cart});
+      })
+      
     })
-    
-  })
+  }else{
+    res.redirect('/users/login');
+  }
+
   
 })
 
 //like the product
 router.get('/userProductList/likes/:id',(req,res)=>{
+  if(req.user.name){
+    let id =req.params.id;
+    Product.findByIdAndUpdate(id,{$inc:{likes:1}},{upsert:true,new:true},(err,updatedProduct)=>{
+     if(err)return next(err);
+     res.redirect('/users/userProductList');
+    })
+  }else{
+    res.redirect('/users/login');
+  }
   
-  let id =req.params.id;
-  Product.findByIdAndUpdate(id,{$inc:{likes:1}},{upsert:true,new:true},(err,updatedProduct)=>{
-   if(err)return next(err);
-   res.redirect('/users/userProductList');
-  })
+
 })
 
 
 //handle cart
 router.get('/userProductList/cart/:id',(req,res,next)=>{
   let id =req.params.id;
+  if(req.user.name){
+    Product.findByIdAndUpdate(id,{$inc:{quantity:-1}},{upsert:true,new:true},(err,updatedProduct)=>{
+      if(err)return next(err);
+    User.findByIdAndUpdate(req.session.userId,{$inc:{cart:1}},{upsert:true,new:true},(err,updatedUser)=>{
+    
+      if(err) return next(err);
+      res.redirect('/users/userProductList');
+    })
+     
+    })
+  }else{
+    res.redirect('/users/login');
+  }
 
-  Product.findByIdAndUpdate(id,{$inc:{quantity:-1}},{upsert:true,new:true},(err,updatedProduct)=>{
-    if(err)return next(err);
-  User.findByIdAndUpdate(req.session.userId,{$inc:{cart:1}},{upsert:true,new:true},(err,updatedUser)=>{
-  
-    if(err) return next(err);
-    res.redirect('/users/userProductList');
-  })
-   
-  })
+
 
 
 })
