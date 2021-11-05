@@ -1,0 +1,35 @@
+<%include partials/headerUser %>
+<main class="container flex center">
+  <div class="main form-h1">
+    <h1>Products List</h1>
+  </div>
+  <div class="container">
+      <ul class="products-box">
+        
+
+          <%products.forEach(p=>{%>
+              <div class="product">
+
+             
+              <h3>Name: <%=p.name%></h3>
+              <small>Price: <%=p.price%></small>
+              <small>No: <%=p.quantity%></small>
+              <small>Likes: <%=p.likes%></small>
+              <div class="buttons">
+                  <a href="/admin/adminProductList/edit/<%=p.id%>" class="btn">Update</a>
+                  <a href="/admin/adminProductList/delete/<%=p.id%>" class="btn">Delete</a>
+              </div>
+             
+          </div>
+          <%})%>
+         
+          <div class="show">
+             
+          </div>
+
+       
+      </ul>
+  </div>
+
+</main>
+<%include partials/footer%>

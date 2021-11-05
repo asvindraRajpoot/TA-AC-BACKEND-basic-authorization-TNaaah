@@ -1,0 +1,11 @@
+<%include partials/headerAdmin %>
+<main class="container">
+    <div class=" users-list ">
+        <%users.forEach(user=>{%>
+            <li>
+                <%=user.name%>
+            </li>
+       <%})%>
+    </div>
+</main>
+<%include partials/footer%>

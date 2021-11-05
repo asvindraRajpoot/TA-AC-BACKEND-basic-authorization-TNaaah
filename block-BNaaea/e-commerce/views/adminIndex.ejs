@@ -1,0 +1,37 @@
+<!-- <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/stylesheets/style3.css">
+    <title>Home</title>
+</head>
+<body>
+    <header>
+      <div class="flex container space-between">
+        <div>
+          <a href="/" class="brand">E-Commerce</a>
+        </div>
+        <div>
+          <a href="/admin/adminLogin" class="btn">Login</a>
+          <a href="/admin/adminRegister" class="btn">SignUp</a>
+        </div>
+      </div>
+    </header> -->
+    <%include partials/headerAdmin %>
+    <main>
+     
+      <%if(admin){%>
+        <h1>Welcome <%=admin.name%></h1>
+        <div class="text-center">
+          <a href="/admin/adminDashboard" class="btn text-center">Goto Dashboard</a>
+        </div>
+      <%}else{%>
+        <h1>Welcome Admin Please Login</h1>
+      <%}%>
+
+      
+   
+    </main>
+    <%include partials/footer%>

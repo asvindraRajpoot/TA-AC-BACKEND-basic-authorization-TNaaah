@@ -1,0 +1,32 @@
+
+    <%include partials/headerUser %>
+    <main class="container flex center">
+      <div class="main form-h1">
+        <h1>Products List</h1>
+      </div>
+      <div class="container">
+        <ul class="products-box">
+          <%products.forEach(p=>{%>
+          <div class="product">
+            <h3>Name: <%=p.name%></h3>
+            <small>Price: <%=p.price%></small>
+            <small>No: <%=p.quantity%></small>
+            <small>Likes: <%=p.likes%></small>
+            <div class="buttons">
+              <%if(p.category){%>
+                <a href="/users/userProductList/likes/<%=p.category%>" class="btn"
+                  >Like</a
+                >
+             <%}else{%>
+                <a href="/users/userProductList/likes/<%=p.id%>" class="btn"
+                  >Like</a
+                >
+              <%}%>            
+            </div>
+          </div>
+          <%})%>
+         
+        </ul>
+      </div>
+    </main>
+    <%include partials/footer%>
